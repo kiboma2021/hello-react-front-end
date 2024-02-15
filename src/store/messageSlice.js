@@ -4,8 +4,8 @@ const messageSlice = createSlice({
   name: 'messages',
   initialState: {
     randomMessage: null,
-    error: null, 
-    loading: false, 
+    error: null,
+    loading: false,
   },
   reducers: {
     fetchRandomMessageRequest(state) {
@@ -30,7 +30,7 @@ export const {
   fetchRandomMessageRequest,
   fetchRandomMessageSuccess,
   fetchRandomMessageFailure,
-  setRandomMessage, 
+  setRandomMessage,
 } = messageSlice.actions;
 
 export const messageReducer = messageSlice.reducer;
