@@ -1,11 +1,11 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 const messageSlice = createSlice({
-  name: "messages",
+  name: 'messages',
   initialState: {
     randomMessage: null, // Store the currently fetched random message
     error: null, // Store any error that occurs during fetching
-    loading: false // Indicate whether the fetching process is ongoing
+    loading: false, // Indicate whether the fetching process is ongoing
   },
   reducers: {
     fetchRandomMessageRequest(state) {
@@ -19,14 +19,14 @@ const messageSlice = createSlice({
     fetchRandomMessageFailure(state, action) {
       state.loading = false;
       state.error = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const {
   fetchRandomMessageRequest,
   fetchRandomMessageSuccess,
-  fetchRandomMessageFailure
+  fetchRandomMessageFailure,
 } = messageSlice.actions;
 
 export const messageReducer = messageSlice.reducer;

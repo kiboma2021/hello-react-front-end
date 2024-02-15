@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  fetchRandomMessageRequest,
   fetchRandomMessageSuccess,
-  fetchRandomMessageFailure
-} from "../store/messageSlice";
+  fetchRandomMessageFailure,
+} from '../store/messageSlice';
 
 export const useFetch = ({ url }) => {
   const [loading, setLoading] = useState(false);
@@ -19,7 +18,7 @@ export const useFetch = ({ url }) => {
       try {
         const response = await fetch(url);
         if (!response.ok) {
-          throw new Error("Failed to fetch data");
+          throw new Error('Failed to fetch data');
         }
         const result = await response.json();
         dispatch(fetchRandomMessageSuccess(result));
