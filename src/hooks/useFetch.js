@@ -1,18 +1,37 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchRandomMessageRequest,
+  fetchRandomMessageSuccess,
+  fetchRandomMessageFailure
+} from "../store/messageSlice";
 
-export const useFetch = ({url}) => {
+export const useFetch = ({ url }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-    const [data, getData]= useState([]);
-    console.log("url",url)
-    useEffect(()=>{
-        async function fetchData(){
-            const response = await fetch(url);
-            const result = await response.json();
-            console.log(result);
-            getData(result);
+  const dispatch = useDispatch();
+  const randomMessage = useSelector((state) => state.messages.randomMessage);
+
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error("Failed to fetch data");
         }
-        fetchData();
-    },[url])
-    
-  return {data}
-}
+        const result = await response.json();
+        dispatch(fetchRandomMessageSuccess(result));
+      } catch (error) {
+        setError(error.message);
+        dispatch(fetchRandomMessageFailure(error.message));
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [url, dispatch]);
+
+  return { loading, error, randomMessage };
+};
